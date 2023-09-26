@@ -1,30 +1,26 @@
 #include <stdio.h>
 
 /**
- * main -  print the first 100 fibonacci numbers, then newline
+ * main - Entry point
  *
- * Return: (0) Success
+ * Return: Always 0 (Success)
  */
 
 int main(void)
 {
 	int i;
+	long int fibonacci[50], sum = 2;
 
-	unsigned long int x, y, z;
+	fibonacci[0] = 1;
+	fibonacci[1] = 2;
 
-	x = 1;
-
-	y = 2;
-
-	printf("%lu, %lu", x, y);
-	for (i = 0; i < 90; i++)
+	for (i = 2; i < 50; i++)
 	{
-		z = x + y;
-		printf(", %lu", z);
-		x = y;
-		y = z;
+		fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
+		if ((fibonacci[i] % 2) == 0 && fibonacci[i] < 4000000)
+			sum += fibonacci[i];
 	}
+	printf("%ld\n", sum);
 
-	putchar('\n');
 	return (0);
 }
