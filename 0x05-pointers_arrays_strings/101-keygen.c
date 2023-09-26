@@ -1,44 +1,53 @@
-#include "main.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 /**
- * main - check the code for Holberton School students.
+ * main - Generates random valid passwords for the
+ * program 101-crackme.
  *
  * Return: Always 0.
  */
 int main(void)
 {
-	int i, j, k, s;
-	char c[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	char p[58];
+	char password[84];
+	int index = 0, sum = 0, diff_half1, diff_half2;
 
-	srand(time(NULL));
-	while (s != 2772)
+	srand(time(0));
+
+	while (sum < 2772)
 	{
-		i = k = s =0;
-		while ((2772 - 122) > s)
-		{
-			j = rand() % 62;
-			p[i] = c[j];
-			s += c[j];
-			i++;
+		password[index] = 33 + rand() % 94;
+		sum += password[index++];
+	}
 
-		}
-		while (c[k])
+	password[index] = '\0';
+
+	if (sum != 2772)
+	{
+		diff_half1 = (sum - 2772) / 2;
+		diff_half2 = (sum - 2772) / 2;
+		if ((sum - 2772) % 2 != 0)
+			diff_half1++;
+
+		for (index = 0; password[index]; index++)
 		{
-			if (c[k] == (2771 -s))
+			if (password[index] >= (33 + diff_half1))
 			{
-				p[i] = c[k];
-				s += c[k];
-				i++;
+				password[index] -= diff_half1;
 				break;
 			}
-			k++;
+		}
+		for (index = 0; password[index]; index++)
+		{
+			if (password[index] >= (33 + diff_half2))
+			{
+				password[index] -= diff_half2;
+				break;
+			}
 		}
 	}
-	p[i] = '\0';
-	printf("%s", p);
-	return (0);
 
+	printf("%s", password);
+	return (0);
 }
